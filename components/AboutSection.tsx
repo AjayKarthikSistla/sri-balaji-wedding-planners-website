@@ -146,7 +146,7 @@ export default function AboutSection() {
             transition={{ duration: 1, delay: 0.4 }}
           >
             <span className="bg-gradient-to-r from-amber-600/90 via-red-700/90 to-pink-600/90 bg-clip-text text-transparent">
-              About Balaji
+              About Us
             </span>
           </motion.h2>
 

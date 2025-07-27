@@ -26,7 +26,7 @@ export default function Footer() {
     {
       icon: Instagram,
       label: "Instagram",
-      href: "https://instagram.com/balajiweddingplanner",
+      href: "https://instagram.com/balaji_wedding_planner",
       color: "from-pink-600/80 to-purple-700/80",
     },
     {

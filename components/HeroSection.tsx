@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef, useEffect, useState } from "react"
 import { Button } from "../components/ui/button"
 import { Sparkles, Heart, Star, Crown, Flower, Diamond } from "lucide-react"
 import Image from "next/image"
@@ -31,7 +31,7 @@ export default function HeroSection() {
   >([])
 
   useEffect(() => {
-    const generated = Array.from({ length: 15 }, () => ({
+    const generated = Array.from({ length: 15 }).map(() => ({
       left: Math.random() * 100,
       top: Math.random() * 100,
       delay: Math.random() * 3,
@@ -53,7 +53,7 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(239,68,68,0.05),transparent_50%)]" />
       </motion.div>
 
-      {/* Floating Elements */}
+      {/* Floating Icons */}
       {floatingElements.map((element, index) => (
         <motion.div
           key={index}
@@ -78,31 +78,106 @@ export default function HeroSection() {
         </motion.div>
       ))}
 
-      {/* Enhanced Particle Effects - Hydration-safe */}
-      {particles.length > 0 && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {particles.map((p, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-amber-500/40 rounded-full"
-              style={{
-                left: `${p.left}%`,
-                top: `${p.top}%`,
-              }}
-              animate={{
-                y: [0, -60, 0],
-                opacity: [0, 0.6, 0],
-                scale: [0, 1, 0],
-              }}
-              transition={{
-                duration: p.duration,
-                repeat: Number.POSITIVE_INFINITY,
-                delay: p.delay,
-              }}
-            />
-          ))}
-        </div>
-      )}
+      {/* Main Content */}
+      <motion.div className="relative z-10 text-center px-6 max-w-6xl mx-auto" style={{ opacity, scale }}>
+        <motion.div initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.5, ease: "easeOut" }} className="mb-8">
+          <motion.div whileHover={{ y: -10 }} transition={{ duration: 0.6 }} className="inline-block">
+            <Image src="/logo.png" alt="Balaji Wedding Planner Logo" width={280} height={280} className="mx-auto drop-shadow-2xl" />
+          </motion.div>
+        </motion.div>
+
+        <motion.h1 className="text-6xl md:text-8xl lg:text-9xl font-bold mb-6" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, duration: 1.2 }}>
+          <motion.span
+            className="bg-gradient-to-r from-amber-600/90 via-red-700/90 via-pink-600/90 to-purple-600/90 bg-clip-text text-transparent"
+            animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+            transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+            style={{ backgroundSize: "200% 200%" }}
+          >
+            BALAJI
+          </motion.span>
+        </motion.h1>
+
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2, duration: 1 }} className="mb-8">
+          <motion.p
+            className="text-2xl md:text-4xl text-emerald-600/80 font-semibold tracking-widest mb-6"
+            animate={{
+              textShadow: [
+                "0 0 10px rgba(5, 150, 105, 0.3)",
+                "0 0 20px rgba(5, 150, 105, 0.5)",
+                "0 0 10px rgba(5, 150, 105, 0.3)",
+              ],
+            }}
+            transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
+          >
+            WEDDING PLANNER
+          </motion.p>
+
+          <motion.p
+            className="text-xl md:text-2xl text-slate-300/90 leading-relaxed max-w-4xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.6, duration: 1.2 }}
+          >
+            “Your Day, Your Way” 
+            <br />
+            <motion.span
+              className="text-amber-500/80 font-medium"
+              animate={{ opacity: [0.7, 1, 0.7] }}
+              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+            >
+              Crafted to Perfection
+            </motion.span>
+          </motion.p>
+        </motion.div>
+
+        <motion.div className="flex flex-col sm:flex-row gap-6 justify-center items-center" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2, duration: 1 }}>
+          <motion.div whileHover={{ scale: 1.03, y: -3 }} whileTap={{ scale: 0.97 }} className="relative overflow-hidden rounded-full">
+            <Button size="lg" className="bg-gradient-to-r from-amber-600/90 via-red-600/90 to-pink-600/90 hover:from-amber-700/90 hover:via-red-700/90 hover:to-pink-700/90 text-white px-12 py-4 rounded-full text-lg font-semibold shadow-2xl hover:shadow-amber-500/20 transition-all duration-500 relative z-10">
+              Plan Your Wedding
+            </Button>
+            <motion.div className="absolute inset-0 bg-white/20 rounded-full" initial={{ scale: 0, opacity: 1 }} whileHover={{ scale: 1.5, opacity: 0 }} transition={{ duration: 0.6 }} />
+          </motion.div>
+
+          <motion.div whileHover={{ scale: 1.03, y: -3 }} whileTap={{ scale: 0.97 }} className="relative overflow-hidden rounded-full">
+            <Button size="lg" variant="outline" className="border-2 border-emerald-600/80 text-emerald-500/90 hover:bg-emerald-600/80 hover:text-white px-12 py-4 rounded-full text-lg font-semibold bg-transparent backdrop-blur-sm transition-all duration-500 relative z-10">
+              View Portfolio
+            </Button>
+            <motion.div className="absolute inset-0 bg-emerald-500/10 rounded-full" initial={{ scale: 0 }} whileHover={{ scale: 1 }} transition={{ duration: 0.4 }} />
+          </motion.div>
+        </motion.div>
+
+        {/* Scroll Indicator */}
+        <motion.div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.5, duration: 1 }}>
+          <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }} className="text-amber-500/70">
+            <div className="w-0.5 h-12 bg-gradient-to-b from-amber-500/70 to-transparent mx-auto mb-2" />
+            <Sparkles size={16} />
+          </motion.div>
+        </motion.div>
+      </motion.div>
+
+      {/* Particle Effects (Hydration-safe) */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {particles.map((p, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-amber-500/40 rounded-full"
+            style={{
+              left: `${p.left}%`,
+              top: `${p.top}%`,
+            }}
+            animate={{
+              y: [0, -60, 0],
+              opacity: [0, 0.6, 0],
+              scale: [0, 1, 0],
+            }}
+            transition={{
+              duration: p.duration,
+              repeat: Number.POSITIVE_INFINITY,
+              delay: p.delay,
+            }}
+          />
+        ))}
+      </div>
     </section>
   )
 }

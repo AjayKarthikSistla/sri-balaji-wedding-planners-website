@@ -1,251 +1,199 @@
 "use client"
 
-import { useRef, useState, useEffect } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
-import { Button } from "../components/ui/button"
-import { Sparkles, Heart, Star, Crown, Flower, Diamond } from "lucide-react"
-import Image from "next/image"
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
+import { useState, useEffect } from "react"
+import { Menu, X, Instagram } from "lucide-react"
+import Link from "next/link"
 
-export default function HeroSection() {
-  const ref = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  })
+export default function Navigation() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState("home")
+  const { scrollY } = useScroll()
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9])
-
-  const floatingElements = [
-    { icon: Sparkles, delay: 0, x: "8%", y: "15%", color: "text-amber-500/60", size: 20 },
-    { icon: Heart, delay: 0.5, x: "85%", y: "25%", color: "text-red-500/60", size: 18 },
-    { icon: Star, delay: 1, x: "12%", y: "65%", color: "text-pink-500/60", size: 16 },
-    { icon: Crown, delay: 1.5, x: "88%", y: "55%", color: "text-purple-500/60", size: 22 },
-    { icon: Flower, delay: 2, x: "45%", y: "8%", color: "text-emerald-500/60", size: 19 },
-    { icon: Diamond, delay: 2.5, x: "75%", y: "75%", color: "text-amber-400/60", size: 17 },
-  ]
-
-  const [particles, setParticles] = useState<{ left: number; top: number; delay: number; duration: number }[]>([])
+  const backgroundColor = useTransform(scrollY, [0, 100], ["rgba(2, 8, 23, 0)", "rgba(2, 8, 23, 0.95)"])
+  const backdropBlur = useTransform(scrollY, [0, 100], ["blur(0px)", "blur(20px)"])
+  const scale = useTransform(scrollY, [0, 100], [1, 0.98])
 
   useEffect(() => {
-    const generated = Array.from({ length: 15 }, () => ({
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      delay: Math.random() * 3,
-      duration: 4 + Math.random() * 3,
-    }))
-    setParticles(generated)
+    const handleScroll = () => {
+      const sections = ["home", "about", "services", "testimonials", "gallery", "contact"]
+      const scrollPosition = window.scrollY + 100
+
+      for (const section of sections) {
+        const element = document.getElementById(section)
+        if (element) {
+          const { offsetTop, offsetHeight } = element
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section)
+            break
+          }
+        }
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  const navItems = [
+    { id: "home", label: "Home" },
+    { id: "about", label: "About" },
+    { id: "services", label: "Services" },
+    { id: "testimonials", label: "Testimonials" },
+    { id: "gallery", label: "Gallery" },
+    { id: "contact", label: "Contact" },
+  ]
+
   return (
-    <section
-      id="home"
-      ref={ref}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900/50 to-slate-950"
+    <motion.nav
+      className="fixed top-0 left-0 right-0 z-40 px-6 py-4"
+      style={{ backgroundColor, backdropFilter: backdropBlur, scale }}
     >
-      {/* Subtle Background Pattern */}
-      <motion.div className="absolute inset-0" style={{ y }}>
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-600/5 via-red-600/5 to-pink-600/5" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(251,191,36,0.05),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(239,68,68,0.05),transparent_50%)]" />
-      </motion.div>
-
-      {/* Floating Icons */}
-      {floatingElements.map((element, index) => (
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
         <motion.div
-          key={index}
-          className={`absolute ${element.color}`}
-          style={{ left: element.x, top: element.y }}
-          initial={{ opacity: 0, scale: 0, rotate: -180 }}
-          animate={{
-            opacity: [0, 0.7, 0.4, 0.7],
-            scale: [0, 1.1, 0.9, 1],
-            rotate: [0, 180, 360],
-            y: [0, -15, 5, -10, 0],
-          }}
-          transition={{
-            duration: 6,
-            delay: element.delay,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatType: "reverse",
-            ease: "easeInOut",
-          }}
-        >
-          <element.icon size={element.size} />
-        </motion.div>
-      ))}
-
-      {/* Main Content */}
-      <motion.div className="relative z-10 text-center px-6 max-w-6xl mx-auto" style={{ opacity, scale }}>
-        {/* Logo */}
-        <motion.div
-          initial={{ opacity: 0, y: 100, scale: 0.3, rotateX: 90 }}
-          animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className="mb-8"
-        >
-          <motion.div whileHover={{ scale: 1.05, rotateY: 5 }} transition={{ duration: 0.6 }} className="inline-block">
-            <Image
-              src="/logo.png"
-              alt="Balaji Wedding Planner Logo"
-              width={280}
-              height={280}
-              className="mx-auto drop-shadow-2xl"
-            />
-          </motion.div>
-        </motion.div>
-
-        {/* Main Title */}
-        <motion.h1
-          className="text-6xl md:text-8xl lg:text-9xl font-bold mb-6"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 1.2 }}
-        >
-          <motion.span
-            className="bg-gradient-to-r from-amber-600/90 via-red-700/90 via-pink-600/90 to-purple-600/90 bg-clip-text text-transparent"
-            animate={{
-              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
-            }}
-            style={{ backgroundSize: "200% 200%" }}
-          >
-            BALAJI
-          </motion.span>
-        </motion.h1>
-
-        {/* Subtitle */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 1 }}
-          className="mb-8"
-        >
-          <motion.p
-            className="text-2xl md:text-4xl text-emerald-600/80 font-semibold tracking-widest mb-6"
-            animate={{
-              textShadow: [
-                "0 0 10px rgba(5, 150, 105, 0.3)",
-                "0 0 20px rgba(5, 150, 105, 0.5)",
-                "0 0 10px rgba(5, 150, 105, 0.3)",
-              ],
-            }}
-            transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
-          >
-            WEDDING PLANNER
-          </motion.p>
-
-          <motion.p
-            className="text-xl md:text-2xl text-slate-300/90 leading-relaxed max-w-4xl mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.6, duration: 1.2 }}
-          >
-            “Your Day, Your Way”
-            <br />
-            <motion.span
-              className="text-amber-500/80 font-medium"
-              animate={{ opacity: [0.7, 1, 0.7] }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-            >
-            Crafted to Perfection
-
-            </motion.span>
-          </motion.p>
-        </motion.div>
-
-        {/* CTA Buttons */}
-        <motion.div
-          className="flex flex-col sm:flex-row gap-6 justify-center items-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, duration: 1 }}
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="flex items-center space-x-3"
         >
           <motion.div
-            whileHover={{ scale: 1.03, y: -3 }}
-            whileTap={{ scale: 0.97 }}
-            className="relative overflow-hidden rounded-full"
+            whileHover={{ rotate: 180, scale: 1.05 }}
+            transition={{ duration: 0.6 }}
+            className="w-12 h-12 relative"
           >
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-amber-600/90 via-red-600/90 to-pink-600/90 hover:from-amber-700/90 hover:via-red-700/90 hover:to-pink-700/90 text-white px-12 py-4 rounded-full text-lg font-semibold shadow-2xl hover:shadow-amber-500/20 transition-all duration-500 relative z-10"
-            >
-              Plan Your Wedding
-            </Button>
-            <motion.div
-              className="absolute inset-0 bg-white/20 rounded-full"
-              initial={{ scale: 0, opacity: 1 }}
-              whileHover={{ scale: 1.5, opacity: 0 }}
-              transition={{ duration: 0.6 }}
-            />
+            <div className="w-full h-full bg-gradient-to-br from-amber-600/80 via-red-700/80 to-pink-600/80 rounded-full p-0.5">
+              <div className="w-full h-full bg-slate-900 rounded-full flex items-center justify-center">
+                <span className="text-amber-500/90 font-bold text-lg">B</span>
+              </div>
+            </div>
           </motion.div>
-
-          <motion.div
-            whileHover={{ scale: 1.03, y: -3 }}
-            whileTap={{ scale: 0.97 }}
-            className="relative overflow-hidden rounded-full"
-          >
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-2 border-emerald-600/80 text-emerald-500/90 hover:bg-emerald-600/80 hover:text-white px-12 py-4 rounded-full text-lg font-semibold bg-transparent backdrop-blur-sm transition-all duration-500 relative z-10"
+          <div>
+            <motion.h1
+              className="text-2xl font-bold bg-gradient-to-r from-amber-600/90 via-red-700/90 to-pink-600/90 bg-clip-text text-transparent"
+              whileHover={{ scale: 1.02 }}
             >
-              View Portfolio
-            </Button>
-            <motion.div
-              className="absolute inset-0 bg-emerald-500/10 rounded-full"
-              initial={{ scale: 0 }}
-              whileHover={{ scale: 1 }}
-              transition={{ duration: 0.4 }}
-            />
-          </motion.div>
+              BALAJI
+            </motion.h1>
+            <motion.p
+              className="text-xs text-emerald-600/80 tracking-widest"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+            >
+              WEDDING PLANNER
+            </motion.p>
+          </div>
         </motion.div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          className="absolute -bottom-16 left-1/2 transform -translate-x-1/2"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.5, duration: 1 }}
-        >
-          <motion.div
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-            className="text-amber-500/70"
-          >
-            <div className="w-0.5 h-12 bg-gradient-to-b from-amber-500/70 to-transparent mx-auto mb-2" />
-            <Sparkles size={16} />
-          </motion.div>
-        </motion.div>
-      </motion.div>
-
-      {/* Particle Effects (hydration-safe) */}
-      {particles.length > 0 && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {particles.map((p, i) => (
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center space-x-8">
+          {navItems.map((item, index) => (
             <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-amber-500/40 rounded-full"
-              style={{ left: `${p.left}%`, top: `${p.top}%` }}
-              animate={{
-                y: [0, -60, 0],
-                opacity: [0, 0.6, 0],
-                scale: [0, 1, 0],
-              }}
-              transition={{
-                duration: p.duration,
-                repeat: Number.POSITIVE_INFINITY,
-                delay: p.delay,
-              }}
-            />
+              key={item.id}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+            >
+              <Link
+                href={`#${item.id}`}
+                className={`relative transition-all duration-300 ${
+                  activeSection === item.id
+                    ? "text-amber-500/90 font-semibold"
+                    : "text-slate-200 hover:text-amber-400/80"
+                }`}
+              >
+                {item.label}
+                {activeSection === item.id && (
+                  <motion.div
+                    layoutId="activeSection"
+                    className="absolute -bottom-2 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-600/80 to-red-600/80 rounded-full"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                )}
+              </Link>
+            </motion.div>
           ))}
+
+          <motion.a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 bg-gradient-to-r from-pink-600/80 to-purple-600/80 rounded-full hover:shadow-lg hover:shadow-pink-500/20 transition-all duration-300"
+            whileHover={{ scale: 1.05, rotate: 3 }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.8, duration: 0.5 }}
+          >
+            <Instagram className="w-5 h-5 text-white" />
+          </motion.a>
         </div>
-      )}
-    </section>
+
+        {/* Mobile Menu Button */}
+        <motion.button
+          className="md:hidden text-slate-200"
+          onClick={() => setIsOpen(!isOpen)}
+          whileTap={{ scale: 0.95 }}
+        >
+          <AnimatePresence mode="wait">
+            {isOpen ? (
+              <motion.div
+                key="close"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <X />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="menu"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Menu />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.button>
+      </div>
+
+      {/* Mobile Navigation */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden mt-4 bg-slate-900/95 backdrop-blur-lg rounded-2xl border border-amber-600/20 overflow-hidden"
+          >
+            <div className="p-6 space-y-4">
+              {navItems.map((item, index) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Link
+                    href={`#${item.id}`}
+                    className="block py-2 text-slate-200 hover:text-amber-400/80 transition-colors"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   )
 }

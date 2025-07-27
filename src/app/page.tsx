@@ -694,7 +694,7 @@ export default function BalajiWeddingPlanner() {
     <div className="min-h-screen bg-slate-950">
       <ScrollProgress />
       <Navigation />
-      {/* <HeroSection /> */}
+      <HeroSection />
       <AboutSection />
       <ServicesSection />
       <TestimonialsSection />
