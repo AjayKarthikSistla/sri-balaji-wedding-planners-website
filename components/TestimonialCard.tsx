@@ -1,23 +1,19 @@
-import { motion } from 'framer-motion';
+"use client"
 
-type Props = {
-  name: string;
-  testimonial: string;
-  image: string;
-};
+import { motion, useScroll, useSpring } from "framer-motion"
 
-export default function TestimonialCard({ name, testimonial, image }: Props) {
+export default function ScrollProgress() {
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  })
+
   return (
     <motion.div
-      className="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center max-w-xs mx-auto"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.5 }}
-      transition={{ duration: 0.6 }}
-    >
-      <img src={image} alt={name} className="w-16 h-16 rounded-full mb-4 object-cover" />
-      <p className="text-gray-700 italic mb-2">"{testimonial}"</p>
-      <span className="font-semibold text-purple-700">- {name}</span>
-    </motion.div>
-  );
-} 
+      className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-600/80 via-red-600/80 to-pink-600/80 transform-gpu z-50"
+      style={{ scaleX, transformOrigin: "0%" }}
+    />
+  )
+}

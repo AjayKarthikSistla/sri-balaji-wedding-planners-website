@@ -1,4 +1,4 @@
-const whatsappNumber = '919876543210'; // Replace with actual number
+const whatsappNumber = '917453993593'; 
 const message = encodeURIComponent('Hello! I would like to know more about your event planning services.');
 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
 
