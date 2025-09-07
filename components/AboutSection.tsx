@@ -5,6 +5,68 @@ import { useRef, useState, useEffect } from "react"
 import { Calendar, Users, Heart, Star, Award, Crown, Trophy, Gift } from "lucide-react"
 import Image from "next/image"
 
+const stats = [
+  {
+    icon: Calendar,
+    label: "1200+",
+    desc: "Weddings Planned",
+    color: "from-amber-600/80 to-yellow-600/80",
+    key: "events",
+    target: 1200,
+  },
+  {
+    icon: Users,
+    label: "15+",
+    desc: "Years Experience",
+    color: "from-red-600/80 to-pink-600/80",
+    key: "years",
+    target: 15,
+  },
+  {
+    icon: Heart,
+    label: "100%",
+    desc: "Happy Couples",
+    color: "from-pink-600/80 to-purple-600/80",
+    key: "satisfaction",
+    target: 100,
+  },
+  {
+    icon: Star,
+    label: "5",
+    desc: "Star Rating",
+    color: "from-emerald-600/80 to-green-600/80",
+    key: "rating",
+    target: 5,
+  },
+]
+
+const features = [
+  {
+    icon: Crown,
+    title: "Royal Treatment",
+    desc: "Every couple deserves royal treatment on their special day",
+    color: "text-amber-500/80",
+  },
+  {
+    icon: Award,
+    title: "Award Winning",
+    desc: "Recognized for excellence in wedding planning services",
+    color: "text-red-500/80",
+  },
+  {
+    icon: Trophy,
+    title: "Premium Quality",
+    desc: "Only the finest vendors and highest quality services",
+    color: "text-emerald-500/80",
+  },
+  {
+    icon: Gift,
+    title: "Personal Touch",
+    desc: "We add personal touches that make your wedding unique",
+    color: "text-purple-500/80",
+  },
+]
+
 export default function AboutSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
@@ -17,68 +79,6 @@ export default function AboutSection() {
 
   const y = useTransform(scrollYProgress, [0, 1], [50, -50])
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 180])
-
-  const stats = [
-    {
-      icon: Calendar,
-      label: "1200+",
-      desc: "Weddings Planned",
-      color: "from-amber-600/80 to-yellow-600/80",
-      key: "events",
-      target: 1200,
-    },
-    {
-      icon: Users,
-      label: "15+",
-      desc: "Years Experience",
-      color: "from-red-600/80 to-pink-600/80",
-      key: "years",
-      target: 15,
-    },
-    {
-      icon: Heart,
-      label: "100%",
-      desc: "Happy Couples",
-      color: "from-pink-600/80 to-purple-600/80",
-      key: "satisfaction",
-      target: 100,
-    },
-    {
-      icon: Star,
-      label: "5",
-      desc: "Star Rating",
-      color: "from-emerald-600/80 to-green-600/80",
-      key: "rating",
-      target: 5,
-    },
-  ]
-
-  const features = [
-    {
-      icon: Crown,
-      title: "Royal Treatment",
-      desc: "Every couple deserves royal treatment on their special day",
-      color: "text-amber-500/80",
-    },
-    {
-      icon: Award,
-      title: "Award Winning",
-      desc: "Recognized for excellence in wedding planning services",
-      color: "text-red-500/80",
-    },
-    {
-      icon: Trophy,
-      title: "Premium Quality",
-      desc: "Only the finest vendors and highest quality services",
-      color: "text-emerald-500/80",
-    },
-    {
-      icon: Gift,
-      title: "Personal Touch",
-      desc: "We add personal touches that make your wedding unique",
-      color: "text-purple-500/80",
-    },
-  ]
 
   // Counter animation effect
   useEffect(() => {

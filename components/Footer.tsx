@@ -5,43 +5,43 @@ import { useRef } from "react"
 import { Heart, Phone, Mail, MapPin, Instagram, Facebook, Youtube, Crown } from "lucide-react"
 import Link from "next/link"
 
+const footerLinks = {
+  services: [
+    "Traditional Weddings",
+    "Royal Celebrations",
+    "Destination Weddings",
+    "Reception Planning",
+    "Sangeet & Mehendi",
+    "Photography & Video",
+  ],
+  quickLinks: ["About Us", "Our Services", "Gallery", "Testimonials", "Contact", "Blog"],
+  legal: ["Privacy Policy", "Terms of Service", "Cancellation Policy", "Refund Policy"],
+}
+
+const socialLinks = [
+  {
+    icon: Instagram,
+    label: "Instagram",
+    href: "https://instagram.com/balaji_wedding_planner",
+    color: "from-pink-600/80 to-purple-700/80",
+  },
+  {
+    icon: Facebook,
+    label: "Facebook",
+    href: "https://facebook.com/balajiweddingplanner",
+    color: "from-blue-600/80 to-blue-700/80",
+  },
+  {
+    icon: Youtube,
+    label: "YouTube",
+    href: "https://youtube.com/balajiweddingplanner",
+    color: "from-red-600/80 to-red-700/80",
+  },
+]
+
 export default function Footer() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-
-  const footerLinks = {
-    services: [
-      "Traditional Weddings",
-      "Royal Celebrations",
-      "Destination Weddings",
-      "Reception Planning",
-      "Sangeet & Mehendi",
-      "Photography & Video",
-    ],
-    quickLinks: ["About Us", "Our Services", "Gallery", "Testimonials", "Contact", "Blog"],
-    legal: ["Privacy Policy", "Terms of Service", "Cancellation Policy", "Refund Policy"],
-  }
-
-  const socialLinks = [
-    {
-      icon: Instagram,
-      label: "Instagram",
-      href: "https://instagram.com/balaji_wedding_planner",
-      color: "from-pink-600/80 to-purple-700/80",
-    },
-    {
-      icon: Facebook,
-      label: "Facebook",
-      href: "https://facebook.com/balajiweddingplanner",
-      color: "from-blue-600/80 to-blue-700/80",
-    },
-    {
-      icon: Youtube,
-      label: "YouTube",
-      href: "https://youtube.com/balajiweddingplanner",
-      color: "from-red-600/80 to-red-700/80",
-    },
-  ]
 
   return (
     <footer className="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">

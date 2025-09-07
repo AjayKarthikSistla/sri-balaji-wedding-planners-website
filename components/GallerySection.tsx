@@ -6,6 +6,107 @@ import { Badge } from "../components/ui/badge"
 import { Eye, Heart, Share2, Play, ZoomIn } from "lucide-react"
 import Image from "next/image"
 
+const categories = ["All", "Traditional", "Royal", "Destination", "Reception", "Sangeet", "Mehendi"]
+const galleryImages = [
+  {
+    src: "/placeholder.svg?height=500&width=700&text=Traditional Wedding Mandap",
+    alt: "Traditional Wedding Mandap",
+    category: "Traditional",
+    likes: 245,
+    views: 1200,
+    isVideo: false,
+  },
+  {
+    src: "/placeholder.svg?height=400&width=600&text=Royal Wedding Ceremony",
+    alt: "Royal Wedding Ceremony",
+    category: "Royal",
+    likes: 389,
+    views: 2100,
+    isVideo: true,
+  },
+  {
+    src: "/placeholder.svg?height=600&width=800&text=Destination Beach Wedding",
+    alt: "Destination Beach Wedding",
+    category: "Destination",
+    likes: 156,
+    views: 890,
+    isVideo: false,
+  },
+  {
+    src: "/placeholder.svg?height=400&width=700&text=Grand Reception Hall",
+    alt: "Grand Reception Hall",
+    category: "Reception",
+    likes: 298,
+    views: 1500,
+    isVideo: false,
+  },
+  {
+    src: "/placeholder.svg?height=500&width=600&text=Sangeet Dance Performance",
+    alt: "Sangeet Dance Performance",
+    category: "Sangeet",
+    likes: 167,
+    views: 750,
+    isVideo: true,
+  },
+  {
+    src: "/placeholder.svg?height=600&width=600&text=Bridal Portrait Session",
+    alt: "Bridal Portrait Session",
+    category: "Traditional",
+    likes: 445,
+    views: 2800,
+    isVideo: false,
+  },
+  {
+    src: "/placeholder.svg?height=400&width=800&text=Royal Wedding Procession",
+    alt: "Royal Wedding Procession",
+    category: "Royal",
+    likes: 234,
+    views: 1100,
+    isVideo: false,
+  },
+  {
+    src: "/placeholder.svg?height=500&width=700&text=Mehendi Ceremony",
+    alt: "Mehendi Ceremony",
+    category: "Mehendi",
+    likes: 312,
+    views: 1450,
+    isVideo: false,
+  },
+  {
+    src: "/placeholder.svg?height=600&width=800&text=Destination Mountain Wedding",
+    alt: "Mountain Wedding Ceremony",
+    category: "Destination",
+    likes: 189,
+    views: 950,
+    isVideo: true,
+  },
+  {
+    src: "/placeholder.svg?height=400&width=600&text=Reception Dinner Setup",
+    alt: "Reception Dinner Setup",
+    category: "Reception",
+    likes: 278,
+    views: 1300,
+    isVideo: false,
+  },
+  {
+    src: "/placeholder.svg?height=500&width=700&text=Traditional Fire Ceremony",
+    alt: "Traditional Fire Ceremony",
+    category: "Traditional",
+    likes: 356,
+    views: 1800,
+    isVideo: false,
+  },
+  {
+    src: "/placeholder.svg?height=600&width=600&text=Mehendi Design Close-up",
+    alt: "Mehendi Design Close-up",
+    category: "Mehendi",
+    likes: 198,
+    views: 820,
+    isVideo: false,
+  },
+]
+
+
 export default function GallerySection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
@@ -18,107 +119,6 @@ export default function GallerySection() {
   })
 
   const y = useTransform(scrollYProgress, [0, 1], [50, -50])
-
-  const categories = ["All", "Traditional", "Royal", "Destination", "Reception", "Sangeet", "Mehendi"]
-
-  const galleryImages = [
-    {
-      src: "/placeholder.svg?height=500&width=700&text=Traditional Wedding Mandap",
-      alt: "Traditional Wedding Mandap",
-      category: "Traditional",
-      likes: 245,
-      views: 1200,
-      isVideo: false,
-    },
-    {
-      src: "/placeholder.svg?height=400&width=600&text=Royal Wedding Ceremony",
-      alt: "Royal Wedding Ceremony",
-      category: "Royal",
-      likes: 389,
-      views: 2100,
-      isVideo: true,
-    },
-    {
-      src: "/placeholder.svg?height=600&width=800&text=Destination Beach Wedding",
-      alt: "Destination Beach Wedding",
-      category: "Destination",
-      likes: 156,
-      views: 890,
-      isVideo: false,
-    },
-    {
-      src: "/placeholder.svg?height=400&width=700&text=Grand Reception Hall",
-      alt: "Grand Reception Hall",
-      category: "Reception",
-      likes: 298,
-      views: 1500,
-      isVideo: false,
-    },
-    {
-      src: "/placeholder.svg?height=500&width=600&text=Sangeet Dance Performance",
-      alt: "Sangeet Dance Performance",
-      category: "Sangeet",
-      likes: 167,
-      views: 750,
-      isVideo: true,
-    },
-    {
-      src: "/placeholder.svg?height=600&width=600&text=Bridal Portrait Session",
-      alt: "Bridal Portrait Session",
-      category: "Traditional",
-      likes: 445,
-      views: 2800,
-      isVideo: false,
-    },
-    {
-      src: "/placeholder.svg?height=400&width=800&text=Royal Wedding Procession",
-      alt: "Royal Wedding Procession",
-      category: "Royal",
-      likes: 234,
-      views: 1100,
-      isVideo: false,
-    },
-    {
-      src: "/placeholder.svg?height=500&width=700&text=Mehendi Ceremony",
-      alt: "Mehendi Ceremony",
-      category: "Mehendi",
-      likes: 312,
-      views: 1450,
-      isVideo: false,
-    },
-    {
-      src: "/placeholder.svg?height=600&width=800&text=Destination Mountain Wedding",
-      alt: "Mountain Wedding Ceremony",
-      category: "Destination",
-      likes: 189,
-      views: 950,
-      isVideo: true,
-    },
-    {
-      src: "/placeholder.svg?height=400&width=600&text=Reception Dinner Setup",
-      alt: "Reception Dinner Setup",
-      category: "Reception",
-      likes: 278,
-      views: 1300,
-      isVideo: false,
-    },
-    {
-      src: "/placeholder.svg?height=500&width=700&text=Traditional Fire Ceremony",
-      alt: "Traditional Fire Ceremony",
-      category: "Traditional",
-      likes: 356,
-      views: 1800,
-      isVideo: false,
-    },
-    {
-      src: "/placeholder.svg?height=600&width=600&text=Mehendi Design Close-up",
-      alt: "Mehendi Design Close-up",
-      category: "Mehendi",
-      likes: 198,
-      views: 820,
-      isVideo: false,
-    },
-  ]
 
   const filteredImages = filter === "All" ? galleryImages : galleryImages.filter((img) => img.category === filter)
 

@@ -4,6 +4,44 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect } from "react"
 import { MessageCircle, Instagram, Phone, ArrowUp, Mail } from "lucide-react"
 
+const whatsappNumber = "917453993593"
+const message = "Hi! I'm interested in your wedding planning services. Can we discuss my requirements?"
+
+const buttons = [
+  {
+    icon: MessageCircle,
+    label: "WhatsApp",
+    color: "from-green-600/90 to-green-700/90",
+    hoverColor: "hover:shadow-green-500/20",
+    action: () => window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, "_blank"),
+    delay: 0.1,
+  },
+  {
+    icon: Instagram,
+    label: "Instagram",
+    color: "from-pink-600/90 to-purple-700/90",
+    hoverColor: "hover:shadow-pink-500/20",
+    action: () => window.open("https://www.instagram.com/balaji_wedding_planner", "_blank"),
+    delay: 0.2,
+  },
+  {
+    icon: Phone,
+    label: "Call Now",
+    color: "from-blue-600/90 to-blue-700/90",
+    hoverColor: "hover:shadow-blue-500/20",
+    action: () => window.open("tel:+917453993593"),
+    delay: 0.3,
+  },
+  {
+    icon: Mail,
+    label: "Email",
+    color: "from-amber-600/90 to-orange-600/90",
+    hoverColor: "hover:shadow-amber-500/20",
+    action: () => window.open("mailto:info@balajiwedding.com"),
+    delay: 0.4,
+  },
+]
+
 export default function FloatingButtons() {
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
@@ -33,44 +71,6 @@ export default function FloatingButtons() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
-
-  const whatsappNumber = "917453993593"
-  const message = "Hi! I'm interested in your wedding planning services. Can we discuss my requirements?"
-
-  const buttons = [
-    {
-      icon: MessageCircle,
-      label: "WhatsApp",
-      color: "from-green-600/90 to-green-700/90",
-      hoverColor: "hover:shadow-green-500/20",
-      action: () => window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, "_blank"),
-      delay: 0.1,
-    },
-    {
-      icon: Instagram,
-      label: "Instagram",
-      color: "from-pink-600/90 to-purple-700/90",
-      hoverColor: "hover:shadow-pink-500/20",
-      action: () => window.open("https://www.instagram.com/balaji_wedding_planner", "_blank"),
-      delay: 0.2,
-    },
-    {
-      icon: Phone,
-      label: "Call Now",
-      color: "from-blue-600/90 to-blue-700/90",
-      hoverColor: "hover:shadow-blue-500/20",
-      action: () => window.open("tel:+917453993593"),
-      delay: 0.3,
-    },
-    {
-      icon: Mail,
-      label: "Email",
-      color: "from-amber-600/90 to-orange-600/90",
-      hoverColor: "hover:shadow-amber-500/20",
-      action: () => window.open("mailto:info@balajiwedding.com"),
-      delay: 0.4,
-    },
-  ]
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col space-y-4">

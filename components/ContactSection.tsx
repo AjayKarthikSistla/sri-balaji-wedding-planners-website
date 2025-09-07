@@ -7,6 +7,37 @@ import { useRef, useState } from "react"
 import { Button } from "../components/ui/button"
 import { Phone, Mail, MapPin, Clock, Send, User, Calendar } from "lucide-react"
 
+const contactInfo = [
+  {
+    icon: Phone,
+    title: "Phone",
+    details: ["+917453993593"],
+    color: "from-green-600/70 to-emerald-600/70",
+    hoverColor: "hover:shadow-green-500/15",
+  },
+  {
+    icon: Mail,
+    title: "Email",
+    details: ["info@balajiwedding.com", "bookings@balajiwedding.com"],
+    color: "from-blue-600/70 to-cyan-600/70",
+    hoverColor: "hover:shadow-blue-500/15",
+  },
+  {
+    icon: MapPin,
+    title: "Address",
+    details: ["Meerut Road, Avas Vikas,", "Hapur, Uttar Pradesh 245101"],
+    color: "from-red-600/70 to-pink-600/70",
+    hoverColor: "hover:shadow-red-500/15",
+  },
+  {
+    icon: Clock,
+    title: "Working Hours",
+    details: ["Mon - Sat: 9:00 AM - 8:00 PM", "Sun: 10:00 AM - 6:00 PM"],
+    color: "from-purple-600/70 to-indigo-600/70",
+    hoverColor: "hover:shadow-purple-500/15",
+  },
+]
+
 export default function ContactSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
@@ -19,37 +50,6 @@ export default function ContactSection() {
     eventType: "",
     message: "",
   })
-
-  const contactInfo = [
-    {
-      icon: Phone,
-      title: "Phone",
-      details: ["+917453993593"],
-      color: "from-green-600/70 to-emerald-600/70",
-      hoverColor: "hover:shadow-green-500/15",
-    },
-    {
-      icon: Mail,
-      title: "Email",
-      details: ["info@balajiwedding.com", "bookings@balajiwedding.com"],
-      color: "from-blue-600/70 to-cyan-600/70",
-      hoverColor: "hover:shadow-blue-500/15",
-    },
-    {
-      icon: MapPin,
-      title: "Address",
-      details: ["Meerut Road, Avas Vikas,", "Hapur, Uttar Pradesh 245101"],
-      color: "from-red-600/70 to-pink-600/70",
-      hoverColor: "hover:shadow-red-500/15",
-    },
-    {
-      icon: Clock,
-      title: "Working Hours",
-      details: ["Mon - Sat: 9:00 AM - 8:00 PM", "Sun: 10:00 AM - 6:00 PM"],
-      color: "from-purple-600/70 to-indigo-600/70",
-      hoverColor: "hover:shadow-purple-500/15",
-    },
-  ]
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({

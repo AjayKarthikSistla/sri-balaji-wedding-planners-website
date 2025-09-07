@@ -5,6 +5,15 @@ import { useState, useEffect } from "react"
 import { Menu, X, Instagram } from "lucide-react"
 import Link from "next/link"
 
+const navItems = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "services", label: "Services" },
+  { id: "testimonials", label: "Testimonials" },
+  { id: "gallery", label: "Gallery" },
+  { id: "contact", label: "Contact" },
+]
+
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("home")
@@ -34,15 +43,6 @@ export default function Navigation() {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-
-  const navItems = [
-    { id: "home", label: "Home" },
-    { id: "about", label: "About" },
-    { id: "services", label: "Services" },
-    { id: "testimonials", label: "Testimonials" },
-    { id: "gallery", label: "Gallery" },
-    { id: "contact", label: "Contact" },
-  ]
 
   return (
     <motion.nav

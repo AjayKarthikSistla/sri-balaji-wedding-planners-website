@@ -5,69 +5,92 @@ import { useRef, useState, useEffect } from "react"
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react"
 import Image from "next/image"
 
+const testimonials = [
+  {
+    name: "Priya & Rajesh Sharma",
+    event: "Traditional Wedding",
+    rating: 5,
+    text: "Balaji Wedding Planner made our dream wedding come true! Every ritual was perfectly organized, and the decorations were absolutely stunning. They understood our vision and exceeded our expectations in every way.",
+    image: "/placeholder.svg?height=120&width=120&text=Priya+Rajesh",
+    location: "Mumbai, Maharashtra",
+    venue: "Heritage Palace",
+    guests: "500+",
+    date: "December 2023",
+  },
+  {
+    name: "Anita & Vikram Patel",
+    event: "Destination Wedding",
+    rating: 5,
+    text: "Our destination wedding in Rajasthan was magical thanks to Balaji team. They handled everything from guest accommodation to traditional ceremonies flawlessly. The royal treatment we received was unforgettable!",
+    image: "/placeholder.svg?height=120&width=120&text=Anita+Vikram",
+    location: "Udaipur, Rajasthan",
+    venue: "City Palace",
+    guests: "300+",
+    date: "February 2024",
+  },
+  {
+    name: "Meera & Arjun Singh",
+    event: "Royal Wedding",
+    rating: 5,
+    text: "The royal treatment we received was beyond imagination. From the grand mandap to the exquisite catering, every detail was perfect. Our guests are still talking about the magnificent celebration!",
+    image: "/placeholder.svg?height=120&width=120&text=Meera+Arjun",
+    location: "Delhi, NCR",
+    venue: "Grand Ballroom",
+    guests: "800+",
+    date: "November 2023",
+  },
+  {
+    name: "Kavya & Rohit Gupta",
+    event: "Modern Traditional Wedding",
+    rating: 5,
+    text: "Perfect blend of tradition and modernity. The team understood our need for contemporary touches while maintaining traditional values. Outstanding service and flawless execution throughout!",
+    image: "/placeholder.svg?height=120&width=120&text=Kavya+Rohit",
+    location: "Bangalore, Karnataka",
+    venue: "Resort Wedding",
+    guests: "400+",
+    date: "January 2024",
+  },
+  {
+    name: "Sneha & Karthik Reddy",
+    event: "South Indian Wedding",
+    rating: 5,
+    text: "Balaji team perfectly executed our South Indian wedding with all traditional customs. The attention to detail and cultural sensitivity was remarkable. Highly recommended for authentic celebrations!",
+    image: "/placeholder.svg?height=120&width=120&text=Sneha+Karthik",
+    location: "Chennai, Tamil Nadu",
+    venue: "Temple Wedding",
+    guests: "600+",
+    date: "March 2024",
+  },
+]
+
+const slideVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 300 : -300,
+    opacity: 0,
+    scale: 0.8,
+    rotateY: direction > 0 ? 45 : -45,
+  }),
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    rotateY: 0,
+  },
+  exit: (direction: number) => ({
+    zIndex: 0,
+    x: direction < 0 ? 300 : -300,
+    opacity: 0,
+    scale: 0.8,
+    rotateY: direction < 0 ? 45 : -45,
+  }),
+}
+
 export default function TestimonialsSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [currentIndex, setCurrentIndex] = useState(0)
   const [direction, setDirection] = useState(0)
-
-  const testimonials = [
-    {
-      name: "Priya & Rajesh Sharma",
-      event: "Traditional Wedding",
-      rating: 5,
-      text: "Balaji Wedding Planner made our dream wedding come true! Every ritual was perfectly organized, and the decorations were absolutely stunning. They understood our vision and exceeded our expectations in every way.",
-      image: "/placeholder.svg?height=120&width=120&text=Priya+Rajesh",
-      location: "Mumbai, Maharashtra",
-      venue: "Heritage Palace",
-      guests: "500+",
-      date: "December 2023",
-    },
-    {
-      name: "Anita & Vikram Patel",
-      event: "Destination Wedding",
-      rating: 5,
-      text: "Our destination wedding in Rajasthan was magical thanks to Balaji team. They handled everything from guest accommodation to traditional ceremonies flawlessly. The royal treatment we received was unforgettable!",
-      image: "/placeholder.svg?height=120&width=120&text=Anita+Vikram",
-      location: "Udaipur, Rajasthan",
-      venue: "City Palace",
-      guests: "300+",
-      date: "February 2024",
-    },
-    {
-      name: "Meera & Arjun Singh",
-      event: "Royal Wedding",
-      rating: 5,
-      text: "The royal treatment we received was beyond imagination. From the grand mandap to the exquisite catering, every detail was perfect. Our guests are still talking about the magnificent celebration!",
-      image: "/placeholder.svg?height=120&width=120&text=Meera+Arjun",
-      location: "Delhi, NCR",
-      venue: "Grand Ballroom",
-      guests: "800+",
-      date: "November 2023",
-    },
-    {
-      name: "Kavya & Rohit Gupta",
-      event: "Modern Traditional Wedding",
-      rating: 5,
-      text: "Perfect blend of tradition and modernity. The team understood our need for contemporary touches while maintaining traditional values. Outstanding service and flawless execution throughout!",
-      image: "/placeholder.svg?height=120&width=120&text=Kavya+Rohit",
-      location: "Bangalore, Karnataka",
-      venue: "Resort Wedding",
-      guests: "400+",
-      date: "January 2024",
-    },
-    {
-      name: "Sneha & Karthik Reddy",
-      event: "South Indian Wedding",
-      rating: 5,
-      text: "Balaji team perfectly executed our South Indian wedding with all traditional customs. The attention to detail and cultural sensitivity was remarkable. Highly recommended for authentic celebrations!",
-      image: "/placeholder.svg?height=120&width=120&text=Sneha+Karthik",
-      location: "Chennai, Tamil Nadu",
-      venue: "Temple Wedding",
-      guests: "600+",
-      date: "March 2024",
-    },
-  ]
 
   const nextTestimonial = () => {
     setDirection(1)
@@ -84,29 +107,6 @@ export default function TestimonialsSection() {
     const interval = setInterval(nextTestimonial, 6000)
     return () => clearInterval(interval)
   }, [])
-
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 300 : -300,
-      opacity: 0,
-      scale: 0.8,
-      rotateY: direction > 0 ? 45 : -45,
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1,
-      scale: 1,
-      rotateY: 0,
-    },
-    exit: (direction: number) => ({
-      zIndex: 0,
-      x: direction < 0 ? 300 : -300,
-      opacity: 0,
-      scale: 0.8,
-      rotateY: direction < 0 ? 45 : -45,
-    }),
-  }
 
   return (
     <section
